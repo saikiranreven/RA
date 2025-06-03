@@ -1,0 +1,21 @@
+{
+  "steps": [
+    {
+      "name": "hashicorp/terraform:light",
+      "entrypoint": "sh",
+      "args": [
+        "-c",
+        "terraform init && terraform validate && terraform plan -out=tfplan"
+      ]
+    },
+    {
+      "name": "hashicorp/terraform:light",
+      "entrypoint": "sh",
+      "args": [
+        "-c",
+        "terraform apply -auto-approve tfplan"
+      ]
+    }
+  ]
+  
+}
