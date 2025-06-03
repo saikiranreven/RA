@@ -2,7 +2,7 @@
   "steps": [
     {
       "name": "gcr.io/cloud-builders/gcloud",
-      "args": ["app", "deploy", "admin-app/app.yaml", "--quiet"]
+      "args": ["app", "deploy", "Admin/app.yaml", "--quiet"]
     }
   ],
   "timeout": "600s",
