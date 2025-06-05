@@ -1,11 +1,6 @@
-from flask import Blueprint, jsonify
+from google.cloud import firestore
 
-inventory_api = Blueprint('inventory_api', __name__)
-
-@inventory_api.route('/api/inventory', methods=['GET'])
-def get_inventory():
-    inventory = [
-        {"id": "P001", "stock": 100},
-        {"id": "P002", "stock": 55}
-    ]
-    return jsonify(inventory)
+def get_all_inventory():
+    db = firestore.Client()
+    docs = db.collection('inventory').stream()
+    return [doc.to_dict() for doc in docs]
