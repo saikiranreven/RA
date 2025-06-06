@@ -1,5 +1,5 @@
 from google.cloud import firestore
-from datetime import datetime
+from datetime import datetime, timezone
 
 def create_order(user_id, product_id, quantity):
     db = firestore.Client()
@@ -8,5 +8,5 @@ def create_order(user_id, product_id, quantity):
         'product_id': product_id,
         'quantity': quantity,
         'status': 'pending',
-        'timestamp': datetime.timezone.utc()
+        'timestamp': datetime.now(timezone.utc)
     })
