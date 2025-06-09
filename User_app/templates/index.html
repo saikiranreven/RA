@@ -5,4 +5,34 @@
   <h1>Welcome to ShopSphere</h1>
   <a href="/products">View Products</a>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopSphere - Products</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>ShopSphere</h1>
+        <p>Browse our exclusive tech products</p>
+    </header>
+    <main>
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <h3>{{ product.name }}</h3>
+                    <p class="description">{{ product.description }}</p>
+                    <p class="price">$ {{ product.price }}</p>
+                    <form method="POST" action="/order">
+                        <input type="hidden" name="product_id" value="{{ product.product_id }}">
+                        <input type="text" name="user_id" placeholder="Enter User ID" required>
+                        <input type="number" name="quantity" placeholder="Quantity" min="1" required>
+                        <button type="submit">Buy Now</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
 </html>
