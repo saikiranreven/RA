@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Place Order</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Place Order for {{ product_id }}</h1>
-        <form method="POST">
-            <label>User ID:</label>
-            <input type="text" name="user_id" required>
-            <label>Quantity:</label>
-            <input type="number" name="quantity" min="1" required>
-            <button type="submit" class="btn">Submit Order</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Place Order{% endblock %}
+{% block content %}
+  <h2>Order: {{ product.name }}</h2>
+  <p>{{ product.description }}</p>
+  <p><strong>Price:</strong> ${{ product.price }}</p>
+  <form action="/order" method="POST">
+    <input type="hidden" name="product_id" value="{{ product.product_id }}">
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" value="1" min="1" required>
+    <label for="user_id">User ID:</label>
+    <input type="text" name="user_id" placeholder="Enter User ID" required>
+    <button type="submit" class="btn">Confirm Order</button>
+  </form>
+{% endblock %}

@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>ShopSphere - Home</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to ShopSphere</h1>
-        <a href="/products" class="btn">Browse Products</a>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Welcome - ShopSphere{% endblock %}
+{% block content %}
+  <h2>Welcome to ShopSphere</h2>
+  <p>Discover our best-selling tech accessories!</p>
+  <a href="/products" class="button">Shop Now</a>
+{% endblock %}

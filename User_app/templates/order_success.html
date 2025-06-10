@@ -1,3 +1,7 @@
-<h2>Order Placed Successfully!</h2>
-<p>You ordered {{ quantity }} unit(s) of product ID: {{ product_id }}.</p>
-<a href="/products">Back to Products</a>
+{% extends 'base.html' %}
+{% block title %}Order Success{% endblock %}
+{% block content %}
+  <h2>Order Confirmed!</h2>
+  <p>Your order has been placed successfully. Order ID: {{ order_id }}</p>
+  <a href="/products" class="button">Continue Shopping</a>
+{% endblock %}
