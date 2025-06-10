@@ -9,7 +9,12 @@
         <p>{{ product.description }}</p>
         <p><strong>Price:</strong> ${{ product.price }}</p>
         <!-- go to dedicated order page -->
-        <a href="{{ url_for('place_order', product_id=product.product_id) }}" class="btn">Order</a>
+        <form action="/order" method="POST" style="margin-top:8px;">
+  <input type="hidden" name="product_id" value="{{ product.product_id }}">
+  <input type="number" name="quantity" value="1" min="1" required>
+  <input type="text"   name="user_id" placeholder="User ID" required>
+  <button type="submit" class="btn">Order</button>
+</form>
       </li>
     {% endfor %}
   </ul>
