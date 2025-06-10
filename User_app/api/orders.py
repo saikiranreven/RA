@@ -12,6 +12,7 @@ def create_order(user_id, product_id, quantity):
         "status":    "pending",
         "timestamp": datetime.now(timezone.utc)
     })
+    return doc_ref.id  
 
 def get_user_orders(user_id):
     return [d.to_dict() for d in db.collection("orders").where("user_id", "==", user_id).stream()]

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from api.products import get_all_products
-from api.orders import create_order, get_user_orders
+from api.orders   import create_order, get_user_orders
 
 app = Flask(__name__)
 
@@ -12,16 +12,21 @@ def index():
 def products():
     return render_template('products.html', products=get_all_products())
 
-@app.route('/place_order/<product_id>', methods=['GET', 'POST'])
-def place_order(product_id):
-    if request.method == 'POST':
-        create_order(request.form['user_id'], product_id, int(request.form['quantity']))
-        return redirect(url_for('order_success'))
-    return render_template('place_order.html', product_id=product_id)
+# NEW: handle the POST from products.html
+@app.route('/order', methods=['POST'])
+def order():
+    order_id = create_order(
+        user_id    = request.form['user_id'],
+        product_id = request.form['product_id'],
+        quantity   = int(request.form['quantity'])
+    )
+    # pass order_id to success page
+    return redirect(url_for('order_success', order_id=order_id))
 
 @app.route('/order_success')
 def order_success():
-    return render_template('order_success.html')
+    oid = request.args.get('order_id')
+    return render_template('order_success.html', order_id=oid)
 
 @app.route('/my_orders', methods=['GET', 'POST'])
 def my_orders():
@@ -29,3 +34,6 @@ def my_orders():
     if request.method == 'POST':
         orders = get_user_orders(request.form['user_id'])
     return render_template('my_orders.html', orders=orders)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8080)
