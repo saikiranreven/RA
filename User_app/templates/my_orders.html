@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}My Orders{% endblock %}
 {% block content %}
-  <h2>My Orders</h2>
-  {% if orders %}
-  <ul class="order-list">
-    {% for order in orders %}
-    <li>
-      <p><strong>Order ID:</strong> {{ order.order_id }}</p>
-      <p><strong>Product ID:</strong> {{ order.product_id }}</p>
-      <p><strong>Quantity:</strong> {{ order.quantity }}</p>
-      <p><strong>Status:</strong> {{ order.status }}</p>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>No orders found.</p>
+  <h2>Check Your Orders</h2>
+
+  <form method="POST" class="order-form">
+    <input type="text" name="user_id" placeholder="Enter your User ID"
+           value="{{ uid or '' }}" required>
+    <button class="btn">Show Orders</button>
+  </form>
+
+  {% if orders is not none %}
+    {% if orders %}
+      <ul class="order-list">
+        {% for o in orders %}
+          <li>
+            <strong>ID:</strong> {{ o.order_id }} |
+            <strong>Product:</strong> {{ o.product_id }} |
+            <strong>Qty:</strong> {{ o.quantity }} |
+            <strong>Status:</strong> {{ o.status }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No orders found for <strong>{{ uid }}</strong>.</p>
+    {% endif %}
   {% endif %}
 {% endblock %}

@@ -31,9 +31,11 @@ def order_success():
 @app.route('/my_orders', methods=['GET', 'POST'])
 def my_orders():
     orders = None
+    uid = None
     if request.method == 'POST':
-        orders = get_user_orders(request.form['user_id'])
-    return render_template('my_orders.html', orders=orders)
+        uid = request.form['user_id']
+        orders = get_user_orders(uid)
+    return render_template('my_orders.html', orders=orders, uid=uid)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(port=8080, debug=True)

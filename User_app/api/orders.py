@@ -15,4 +15,10 @@ def create_order(user_id, product_id, quantity):
     return doc_ref.id  
 
 def get_user_orders(user_id):
-    return [d.to_dict() for d in db.collection("orders").where("user_id", "==", user_id).stream()]
+    return [
+        d.to_dict()
+        for d in db.collection("orders")
+                  .where("user_id", "==", user_id)
+                  .order_by("timestamp", direction=firestore.Query.DESCENDING)
+                  .stream()
+    ]
